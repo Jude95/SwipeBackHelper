@@ -1,0 +1,51 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 22
+    buildToolsVersion "22.0.1"
+
+    defaultConfig {
+        minSdkVersion 15
+        targetSdkVersion 22
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:appcompat-v7:22.2.0'
+}
+ext {
+    bintrayRepo = 'maven'////bintray上的仓库名，一般为maven
+    bintrayName = 'swipbackhelper'//bintray上的项目名
+
+    publishedGroupId = 'com.jude'//JCenter的GroupId
+    artifact = 'swipbackhelper'//JCenter的ArtifactId
+
+    siteUrl = 'https://github.com/Jude95/RequestVolley'
+    gitUrl = 'https://github.com/Jude95/RequestVolley'
+
+    libraryVersion = '1.0.0'//版本号
+    libraryName = 'swipbackhelper'//项目名字，没什么用
+    libraryDescription = 'A tool for Android'//项目描述，没什么用
+
+    //开发者信息
+    developerId = 'jude95'
+    developerName = 'jude95'
+    developerEmail = 'jude@helloworld.moe'
+
+    //以上所有信息自行修改，以下不变
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
+apply from:'https://raw.githubusercontent.com/Jude95/JCenter/master/install.gradle'
+apply from:'https://raw.githubusercontent.com/Jude95/JCenter/master/bintray.gradle'
