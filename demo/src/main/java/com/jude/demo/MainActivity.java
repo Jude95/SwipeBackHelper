@@ -1,9 +1,12 @@
 package com.jude.demo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.jude.swipbackhelper.SwipeBackHelper;
 
@@ -14,7 +17,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        SwipeBackHelper.prepare(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.action_bar);
+        setSupportActionBar(toolbar);
+        SwipeBackHelper.prepare(this).setSwipeEdgePercent(0.8f);
+        findViewById(R.id.container).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this,MainActivity.class));
+            }
+        });
     }
 
     @Override
