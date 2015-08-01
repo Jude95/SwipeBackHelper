@@ -25,21 +25,21 @@ public class SwipeBackHelper {
         mActivity.getWindow().getDecorView().setBackgroundDrawable(null);
         mSwipeBackLayout = new SwipeBackLayout(mActivity);
         mSwipeBackLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        mSwipeBackLayout.addSwipeListener(new SwipeBackLayout.SwipeListener() {
-            @Override
-            public void onScrollStateChange(int state, float scrollPercent) {
-            }
-
-            @Override
-            public void onEdgeTouch(int edgeFlag) {
-                Utils.convertActivityToTranslucent(mActivity);
-            }
-
-            @Override
-            public void onScrollOverThreshold() {
-
-            }
-        });
+//        mSwipeBackLayout.addSwipeListener(new SwipeBackLayout.SwipeListener() {
+//            @Override
+//            public void onScrollStateChange(int state, float scrollPercent) {
+//            }
+//
+//            @Override
+//            public void onEdgeTouch(int edgeFlag) {
+//                Utils.convertActivityToTranslucent(mActivity);
+//            }
+//
+//            @Override
+//            public void onScrollOverThreshold() {
+//
+//            }
+//        });
         mActivity.getWindow().getDecorView().post(new Runnable() {
             @Override
             public void run() {
@@ -55,6 +55,11 @@ public class SwipeBackHelper {
 
     public SwipeBackHelper setSwipeEdge(int swipeEdge){
         mSwipeBackLayout.setEdgeSize(swipeEdge);
+        return this;
+    }
+
+    public SwipeBackHelper setSwipeEdgePercent(float swipeEdgePersent){
+        mSwipeBackLayout.setEdgeSizePercent(swipeEdgePersent);
         return this;
     }
 

@@ -102,10 +102,10 @@ public class SwipeBackLayout extends FrameLayout {
 
         final float density = getResources().getDisplayMetrics().density;
         final float minVel = MIN_FLING_VELOCITY * density;
-        setEdgeSize(getResources().getDisplayMetrics().widthPixels/2);
+        setEdgeSize(getResources().getDisplayMetrics().widthPixels);
         mDragHelper.setMinVelocity(minVel);
         mDragHelper.setMaxVelocity(minVel * 2f);
-        mDragHelper.setEdgeTrackingEnabled(mDragHelper.EDGE_LEFT);
+        mDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_LEFT);
     }
 
     /**
@@ -152,7 +152,13 @@ public class SwipeBackLayout extends FrameLayout {
      */
     public void setEdgeSize(int size) {
         mTrackingEdge = size;
-        mDragHelper.setEdgeSize(size);
+        mDragHelper.setEdgeSize(mTrackingEdge);
+    }
+
+
+    public void setEdgeSizePercent(float size) {
+        mTrackingEdge = (int) (getResources().getDisplayMetrics().widthPixels * size);
+        mDragHelper.setEdgeSize(mTrackingEdge);
     }
 
     /**
