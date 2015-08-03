@@ -2,7 +2,7 @@
 
     <style name="AppTheme" parent="AppTheme.Base">
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:statusBarColor">?colorPrimaryDark</item>
+        <item name="android:statusBarColor">?colorPrimary</item>
     </style>
 
 </resources>

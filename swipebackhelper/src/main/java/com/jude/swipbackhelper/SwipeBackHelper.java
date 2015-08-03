@@ -1,74 +1,46 @@
 package com.jude.swipbackhelper;
 
 import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
-import android.view.ViewGroup;
 
+import java.util.Stack;
 
+/**
+ * 滑动的全局管理类
+ */
 public class SwipeBackHelper {
-    private Activity mActivity;
 
-    private SwipeBackLayout mSwipeBackLayout;
+    private static final Stack<SwipeBackPage> mPageStack = new Stack<>();
 
-    public SwipeBackHelper(Activity activity) {
-        mActivity = activity;
-        onActivityCreate();
+    private static SwipeBackPage findHelperByActivity(Activity activity){
+        for (SwipeBackPage swipeBackPage : mPageStack) {
+            if (swipeBackPage.mActivity == activity) return swipeBackPage;
+        }
+        return null;
     }
 
-    public static SwipeBackHelper prepare(Activity activity){
-        return new SwipeBackHelper(activity);
+    public static void onCreate(Activity activity) {
+        SwipeBackPage page;
+        if ((page = findHelperByActivity(activity)) == null){
+            page = mPageStack.push(new SwipeBackPage(activity));
+        }
+        page.onCreate();
     }
 
-    private void onActivityCreate() {
-        mActivity.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        mActivity.getWindow().getDecorView().setBackgroundDrawable(null);
-        mSwipeBackLayout = new SwipeBackLayout(mActivity);
-        mSwipeBackLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-//        mSwipeBackLayout.addSwipeListener(new SwipeBackLayout.SwipeListener() {
-//            @Override
-//            public void onScrollStateChange(int state, float scrollPercent) {
-//            }
-//
-//            @Override
-//            public void onEdgeTouch(int edgeFlag) {
-//                Utils.convertActivityToTranslucent(mActivity);
-//            }
-//
-//            @Override
-//            public void onScrollOverThreshold() {
-//
-//            }
-//        });
-        mActivity.getWindow().getDecorView().post(new Runnable() {
-            @Override
-            public void run() {
-                mSwipeBackLayout.attachToActivity(mActivity);
-            }
-        });
+    public static void onPostCreate(Activity activity){
+        SwipeBackPage page;
+        if ((page = findHelperByActivity(activity)) == null){
+            throw new RuntimeException("You Should use SwipeBackHelper.onCreate(activity) first");
+        }
+        page.onPostCreate();
     }
 
-    public SwipeBackHelper setSwipeBackEnable(boolean enable) {
-        mSwipeBackLayout.setEnableGesture(enable);
-        return this;
+    public static void onDestroy(Activity activity){
+        SwipeBackPage helper;
+        if ((helper = findHelperByActivity(activity)) == null){
+            throw new RuntimeException("You Should use SwipeBackHelper.onCreate(activity) first");
+        }
+        mPageStack.remove(helper);
+        helper.mActivity=null;
     }
 
-    public SwipeBackHelper setSwipeEdge(int swipeEdge){
-        mSwipeBackLayout.setEdgeSize(swipeEdge);
-        return this;
-    }
-
-    public SwipeBackHelper setSwipeEdgePercent(float swipeEdgePersent){
-        mSwipeBackLayout.setEdgeSizePercent(swipeEdgePersent);
-        return this;
-    }
-
-    public SwipeBackLayout getSwipeBackLayout() {
-        return mSwipeBackLayout;
-    }
-
-    public void scrollToFinishActivity() {
-        Utils.convertActivityToTranslucent(mActivity);
-        mSwipeBackLayout.scrollToFinishActivity();
-    }
 }
