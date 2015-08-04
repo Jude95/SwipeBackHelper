@@ -30,7 +30,7 @@
         SwipeBackHelper.onDestroy(this);
     }
 
-如果需要可在`SwipeBackHelper.onCreate()`之后进行如下参数设置，如下：
+如果需要可在`SwipeBackHelper.onCreate()`之后进行如下参数设置：
 
     SwipeBackHelper.getCurrentPage(this)//获取当前页面
         .setSwipeBackEnable(true)//设置是否可滑动
