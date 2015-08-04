@@ -64,8 +64,6 @@ public class SwipeBackLayout extends FrameLayout {
 
     private int mContentLeft;
 
-    private int mContentTop;
-
     /**
      * The set of listeners to be sent events through.
      */
@@ -197,16 +195,7 @@ public class SwipeBackLayout extends FrameLayout {
         mListeners.remove(listener);
     }
 
-    public interface SwipeListener {
-        void onScrollStateChange(int state, float scrollPercent);
 
-        void onEdgeTouch(int edgeFlag);
-
-        /**
-         * Invoke when scroll percent over the threshold for the first time
-         */
-        void onScrollOverThreshold();
-    }
 
     /**
      * Set scroll threshold, we will close the activity, when scrollPercent over
@@ -214,7 +203,7 @@ public class SwipeBackLayout extends FrameLayout {
      *
      * @param threshold
      */
-    public void setScrollThresHold(float threshold) {
+    public void setScrollThreshold(float threshold) {
         if (threshold >= 1.0f || threshold <= 0) {
             throw new IllegalArgumentException("Threshold value should be between 0 and 1.0");
         }
@@ -270,9 +259,9 @@ public class SwipeBackLayout extends FrameLayout {
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         mInLayout = true;
         if (mContentView != null)
-            mContentView.layout(mContentLeft, mContentTop,
+            mContentView.layout(mContentLeft, 0,
                     mContentLeft + mContentView.getMeasuredWidth(),
-                    mContentTop + mContentView.getMeasuredHeight());
+                    0 + mContentView.getMeasuredHeight());
         mInLayout = false;
     }
 
@@ -348,7 +337,7 @@ public class SwipeBackLayout extends FrameLayout {
             if (ret) {
                 if (mListeners != null && !mListeners.isEmpty()) {
                     for (SwipeListener listener : mListeners) {
-                        listener.onEdgeTouch(mTrackingEdge);
+                        listener.onEdgeTouch();
                     }
                 }
                 mIsScrollOverValid = true;
@@ -369,10 +358,8 @@ public class SwipeBackLayout extends FrameLayout {
         @Override
         public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
             super.onViewPositionChanged(changedView, left, top, dx, dy);
-                mScrollPercent = Math.abs((float) left
-                        / (mContentView.getWidth() + mShadowLeft.getIntrinsicWidth()));
+            mScrollPercent = Math.abs((float) left / (mContentView.getWidth() + mShadowLeft.getIntrinsicWidth()));
             mContentLeft = left;
-            mContentTop = top;
             invalidate();
             if (mScrollPercent < mScrollThreshold && !mIsScrollOverValid) {
                 mIsScrollOverValid = true;
@@ -381,14 +368,22 @@ public class SwipeBackLayout extends FrameLayout {
                     && mDragHelper.getViewDragState() == STATE_DRAGGING
                     && mScrollPercent >= mScrollThreshold && mIsScrollOverValid) {
                 mIsScrollOverValid = false;
-                for (SwipeListener listener : mListeners) {
-                    listener.onScrollOverThreshold();
-                }
+
             }
 
             if (mScrollPercent >= 1) {
-                if (!mActivity.isFinishing())
+                if (!mActivity.isFinishing()){
+                    for (SwipeListener listener : mListeners) {
+                        listener.onScrollToClose();
+                    }
                     mActivity.finish();
+                }
+            }
+
+            if (mListeners != null && !mListeners.isEmpty()) {
+                for (SwipeListener listener : mListeners) {
+                    listener.onScroll(mScrollPercent, mContentLeft);
+                }
             }
         }
 
@@ -397,6 +392,7 @@ public class SwipeBackLayout extends FrameLayout {
             final int childWidth = releasedChild.getWidth();
 
             int left = 0, top = 0;
+            //判断释放以后是应该滑到最右边(关闭)，还是最左边（还原）
             left = xvel > 0 || xvel == 0 && mScrollPercent > mScrollThreshold ? childWidth
                     + mShadowLeft.getIntrinsicWidth() + OVERSCROLL_DISTANCE : 0;
 
@@ -410,14 +406,5 @@ public class SwipeBackLayout extends FrameLayout {
             return Math.min(child.getWidth(), Math.max(left, 0));
         }
 
-        @Override
-        public void onViewDragStateChanged(int state) {
-            super.onViewDragStateChanged(state);
-            if (mListeners != null && !mListeners.isEmpty()) {
-                for (SwipeListener listener : mListeners) {
-                    listener.onScrollStateChange(state, mScrollPercent);
-                }
-            }
-        }
     }
 }

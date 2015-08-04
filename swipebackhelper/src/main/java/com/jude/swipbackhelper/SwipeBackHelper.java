@@ -18,6 +18,14 @@ public class SwipeBackHelper {
         return null;
     }
 
+    public static SwipeBackPage getCurrentPage(Activity activity){
+        SwipeBackPage page;
+        if ((page = findHelperByActivity(activity)) == null){
+            throw new RuntimeException("You Should call SwipeBackHelper.onCreate(activity) first");
+        }
+        return page;
+    }
+
     public static void onCreate(Activity activity) {
         SwipeBackPage page;
         if ((page = findHelperByActivity(activity)) == null){
@@ -29,7 +37,7 @@ public class SwipeBackHelper {
     public static void onPostCreate(Activity activity){
         SwipeBackPage page;
         if ((page = findHelperByActivity(activity)) == null){
-            throw new RuntimeException("You Should use SwipeBackHelper.onCreate(activity) first");
+            throw new RuntimeException("You Should call SwipeBackHelper.onCreate(activity) first");
         }
         page.onPostCreate();
     }
@@ -37,7 +45,7 @@ public class SwipeBackHelper {
     public static void onDestroy(Activity activity){
         SwipeBackPage helper;
         if ((helper = findHelperByActivity(activity)) == null){
-            throw new RuntimeException("You Should use SwipeBackHelper.onCreate(activity) first");
+            throw new RuntimeException("You Should call SwipeBackHelper.onCreate(activity) first");
         }
         mPageStack.remove(helper);
         helper.mActivity=null;

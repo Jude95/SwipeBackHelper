@@ -1,14 +1,17 @@
 package com.jude.demo;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.jude.swipbackhelper.SwipeBackHelper;
+import com.jude.swipbackhelper.SwipeListener;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -19,6 +22,32 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.action_bar);
         setSupportActionBar(toolbar);
         SwipeBackHelper.onCreate(this);
+
+        SwipeBackHelper.getCurrentPage(this)
+                .setSwipeBackEnable(true)
+                .setSwipeEdge(200)
+                .setSwipeEdgePercent(0.5f)
+                .setSwipeSensitivity(0.5f)
+                .setScrimColor(Color.BLUE)
+                .setClosePercent(0.5f)
+                .addListener(new SwipeListener() {
+
+                    @Override
+                    public void onScroll(float percent, int px) {
+                        Log.i("swipetest","percent:"+percent+"  px"+px);
+                    }
+
+                    @Override
+                    public void onEdgeTouch() {
+                        Log.i("swipetest","onEdgeTouch");
+                    }
+
+                    @Override
+                    public void onScrollToClose() {
+                        Log.i("swipetest","onScrollToClose");
+                    }
+                });
+
         findViewById(R.id.container).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
