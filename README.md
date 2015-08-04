@@ -34,7 +34,7 @@
 
     SwipeBackHelper.getCurrentPage(this)//获取当前页面
         .setSwipeBackEnable(true)//设置是否可滑动
-        .setSwipeEdge(200)//可滑动的范围。百分比。200表示为左边200px的屏幕
+        .setSwipeEdge(200)//可滑动的范围。px。200表示为左边200px的屏幕
         .setSwipeEdgePercent(0.2f)//可滑动的范围。百分比。0.2表示为左边20%的屏幕
         .setSwipeSensitivity(0.5f)//对横向滑动手势的敏感程度。0为迟钝 1为敏感
         .setScrimColor(Color.BLUE)//底层阴影颜色
