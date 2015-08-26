@@ -6,7 +6,7 @@
 ![swipeback.png](swipeback.png)
 
 ##依赖
-`compile 'com.jude:swipebackhelper:1.1.3'`
+`compile 'com.jude:swipebackhelper:1.1.4'`
 
 ##配置
 在`style.xml`中添加`<item name="android:windowIsTranslucent">true</item>`

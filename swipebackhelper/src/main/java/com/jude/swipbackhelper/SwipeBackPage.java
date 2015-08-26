@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 public class SwipeBackPage {
     Activity mActivity;
     SwipeBackLayout mSwipeBackLayout;
-
+    RelateSlider slider;
     SwipeBackPage(Activity activity){
         this.mActivity = activity;
     }
@@ -23,10 +23,17 @@ public class SwipeBackPage {
         mActivity.getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
         mSwipeBackLayout = new SwipeBackLayout(mActivity);
         mSwipeBackLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        setSwipeRelateEnable(true);
     }
 
     void onPostCreate(){
         mSwipeBackLayout.attachToActivity(mActivity);
+    }
+
+    public SwipeBackPage setSwipeRelateEnable(boolean enable){
+        if (enable )mSwipeBackLayout.addSwipeListener(slider = new RelateSlider(this, 500));
+        else  mSwipeBackLayout.removeSwipeListener(slider);
+        return this;
     }
 
     //是否可滑动关闭

@@ -103,6 +103,7 @@ public class SwipeBackLayout extends FrameLayout {
         setEdgeSize(getResources().getDisplayMetrics().widthPixels);
         mDragHelper.setMinVelocity(minVel);
         mDragHelper.setMaxVelocity(minVel * 2f);
+        mDragHelper.setSensitivity(context, 0.3f);
         mDragHelper.setEdgeTrackingEnabled(ViewDragHelper.EDGE_LEFT);
     }
 
@@ -364,19 +365,17 @@ public class SwipeBackLayout extends FrameLayout {
             if (mScrollPercent < mScrollThreshold && !mIsScrollOverValid) {
                 mIsScrollOverValid = true;
             }
-            if (mListeners != null && !mListeners.isEmpty()
-                    && mDragHelper.getViewDragState() == STATE_DRAGGING
-                    && mScrollPercent >= mScrollThreshold && mIsScrollOverValid) {
-                mIsScrollOverValid = false;
-
-            }
 
             if (mScrollPercent >= 1) {
                 if (!mActivity.isFinishing()){
-                    for (SwipeListener listener : mListeners) {
-                        listener.onScrollToClose();
-                    }
                     mActivity.finish();
+                    if (mListeners != null && !mListeners.isEmpty()
+                            && mScrollPercent >= mScrollThreshold && mIsScrollOverValid) {
+                        mIsScrollOverValid = false;
+                        for (SwipeListener listener : mListeners) {
+                            listener.onScrollToClose();
+                        }
+                    }
                 }
             }
 
