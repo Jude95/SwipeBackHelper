@@ -3,14 +3,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
-
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/action_bar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?actionBarSize"
-        android:background="?colorPrimary"
-        ></android.support.v7.widget.Toolbar>
     <TextView
         android:id="@+id/container"
         android:text="@string/hello_world"

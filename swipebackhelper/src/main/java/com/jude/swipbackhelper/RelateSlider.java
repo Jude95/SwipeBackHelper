@@ -5,11 +5,20 @@ package com.jude.swipbackhelper;
  */
 public class RelateSlider implements SwipeListener {
     public SwipeBackPage curPage;
-    private int offset;
+    private int offset = 500;
 
-    public RelateSlider(SwipeBackPage curActivity, int offset) {
+    public RelateSlider(SwipeBackPage curActivity) {
         this.curPage = curActivity;
+        curPage.addListener(this);
+    }
+
+    public void setOffset(int offset) {
         this.offset = offset;
+    }
+
+    public void setEnable(boolean enable){
+        if (enable)curPage.addListener(this);
+        else curPage.removeListener(this);
     }
 
     @Override

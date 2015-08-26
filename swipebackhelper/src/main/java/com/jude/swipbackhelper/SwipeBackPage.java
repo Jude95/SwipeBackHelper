@@ -23,7 +23,7 @@ public class SwipeBackPage {
         mActivity.getWindow().getDecorView().setBackgroundColor(Color.TRANSPARENT);
         mSwipeBackLayout = new SwipeBackLayout(mActivity);
         mSwipeBackLayout.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        setSwipeRelateEnable(true);
+        slider = new RelateSlider(this);
     }
 
     void onPostCreate(){
@@ -31,8 +31,12 @@ public class SwipeBackPage {
     }
 
     public SwipeBackPage setSwipeRelateEnable(boolean enable){
-        if (enable )mSwipeBackLayout.addSwipeListener(slider = new RelateSlider(this, 500));
-        else  mSwipeBackLayout.removeSwipeListener(slider);
+        slider.setEnable(enable);
+        return this;
+    }
+
+    public SwipeBackPage setSwipeRelateOffset(int offset){
+        slider.setOffset(offset);
         return this;
     }
 
@@ -74,6 +78,11 @@ public class SwipeBackPage {
 
     public SwipeBackPage addListener(SwipeListener listener){
         mSwipeBackLayout.addSwipeListener(listener);
+        return this;
+    }
+
+    public SwipeBackPage removeListener(SwipeListener listener){
+        mSwipeBackLayout.removeSwipeListener(listener);
         return this;
     }
 

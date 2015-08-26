@@ -6,7 +6,7 @@
 ![swipeback.png](swipeback.png)
 
 ##依赖
-`compile 'com.jude:swipebackhelper:1.1.4'`
+`compile 'com.jude:swipebackhelper:1.1.5'`
 
 ##配置
 在`style.xml`中添加`<item name="android:windowIsTranslucent">true</item>`
@@ -39,6 +39,8 @@
         .setSwipeSensitivity(0.5f)//对横向滑动手势的敏感程度。0为迟钝 1为敏感
         .setScrimColor(Color.BLUE)//底层阴影颜色
         .setClosePercent(0.8f)//触发关闭Activity百分比
+        .setSwipeRelateEnable(false)//是否与下一级activity联动。默认是
+        .setSwipeRelateOffset(500)//activity联动时的偏移量。默认500px。
         .addListener(new SwipeListener() {//滑动监听
 
             @Override
