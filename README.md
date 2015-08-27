@@ -4,7 +4,7 @@
 有与微信相同的下级activity联动效果。
 将滑动部分与Activity解耦.在自己的Activity中3个生命周期中加一行代码即可。
 解决可设置滑动范围只有半个屏幕的限制。   
-![swipeback.png](swipeback.png)
+![swipeback.png](swipeback.gif)
 
 ##依赖
 `compile 'com.jude:swipebackhelper:1.1.5'`
