@@ -16,7 +16,7 @@
     <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
     <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
 
-**注意:MIUI特殊处理**  给你的主Activity(永远在最底层不会滑动关闭)单独设置一个主题继承于通用主题
+**注意:MIUI特殊处理**  给你的主Activity(永远在最底层不会滑动关闭)单独设置一个主题
 
     <style name="MainTheme" parent="AppTheme">
         <item name="android:windowIsTranslucent">false</item>
