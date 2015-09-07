@@ -9,7 +9,7 @@ public class RelateSlider implements SwipeListener {
 
     public RelateSlider(SwipeBackPage curActivity) {
         this.curPage = curActivity;
-        curPage.addListener(this);
+        //curPage.addListener(this);
     }
 
     public void setOffset(int offset) {
@@ -26,6 +26,9 @@ public class RelateSlider implements SwipeListener {
         SwipeBackPage page = SwipeBackHelper.getPrePage(curPage);
         if (page!=null){
             page.getSwipeBackLayout().setX(-offset * (1 - percent));
+            if (percent == 0){
+                page.getSwipeBackLayout().setX(0);
+            }
         }
     }
 

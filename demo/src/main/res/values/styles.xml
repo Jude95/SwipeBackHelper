@@ -6,6 +6,12 @@
         <item name="colorPrimaryDark">@color/DeepPurple</item>
         <item name="colorAccent">@color/Orange</item>
         <item name="android:windowIsTranslucent">true</item>
+        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    </style>
+
+    <style name="MainTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">false</item>
     </style>
 
     <style name="AppTheme" parent="AppTheme.Base"></style>

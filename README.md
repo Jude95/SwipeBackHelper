@@ -7,10 +7,21 @@
 ![swipeback.png](swipeback.gif)
 
 ##依赖
-`compile 'com.jude:swipebackhelper:1.1.5'`
+`compile 'com.jude:swipebackhelper:1.1.6'`
 
 ##配置
-在`style.xml`中添加`<item name="android:windowIsTranslucent">true</item>`
+在`style.xml`中添加
+
+    <item name="android:windowIsTranslucent">true</item>
+    <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+    <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+
+**注意:MIUI特殊处理**  给你的主Activity(永远在最底层不会滑动关闭)单独设置一个主题继承于通用主题
+
+    <style name="MainTheme" parent="AppTheme">
+        <item name="android:windowIsTranslucent">false</item>
+    </style>
+
 在你的Activity中添加一下几个生命周期，即可。
 
     @Override

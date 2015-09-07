@@ -30,6 +30,7 @@ public class SwipeBackPage {
         mSwipeBackLayout.attachToActivity(mActivity);
     }
 
+
     public SwipeBackPage setSwipeRelateEnable(boolean enable){
         slider.setEnable(enable);
         return this;
@@ -91,9 +92,7 @@ public class SwipeBackPage {
     }
 
     public void scrollToFinishActivity() {
-        Utils.convertActivityToTranslucent(mActivity);
         mSwipeBackLayout.scrollToFinishActivity();
     }
-
 
 }

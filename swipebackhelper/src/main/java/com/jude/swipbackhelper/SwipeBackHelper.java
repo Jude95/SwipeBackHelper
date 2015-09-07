@@ -1,7 +1,6 @@
 package com.jude.swipbackhelper;
 
 import android.app.Activity;
-import android.util.Log;
 
 import java.util.Stack;
 
@@ -27,8 +26,6 @@ public class SwipeBackHelper {
         return page;
     }
 
-
-
     public static void onCreate(Activity activity) {
         SwipeBackPage page;
         if ((page = findHelperByActivity(activity)) == null){
@@ -46,17 +43,24 @@ public class SwipeBackHelper {
     }
 
     public static void onDestroy(Activity activity){
-        SwipeBackPage helper;
-        if ((helper = findHelperByActivity(activity)) == null){
+        SwipeBackPage page;
+        if ((page = findHelperByActivity(activity)) == null){
             throw new RuntimeException("You Should call SwipeBackHelper.onCreate(activity) first");
         }
-        mPageStack.remove(helper);
-        helper.mActivity=null;
+        mPageStack.remove(page);
+        page.mActivity=null;
+    }
+
+    public static void finish(Activity activity){
+        SwipeBackPage page;
+        if ((page = findHelperByActivity(activity)) == null){
+            throw new RuntimeException("You Should call SwipeBackHelper.onCreate(activity) first");
+        }
+        page.scrollToFinishActivity();
     }
 
     static SwipeBackPage getPrePage(SwipeBackPage activity){
         int index = mPageStack.indexOf(activity);
-        Log.i("Swipe", "index" + index + "  length:" + mPageStack.size());
         if (index>0)return mPageStack.get(index-1);
         else return null;
     }
