@@ -25,7 +25,7 @@ public class RelateSlider implements SwipeListener {
     public void onScroll(float percent, int px) {
         SwipeBackPage page = SwipeBackHelper.getPrePage(curPage);
         if (page!=null){
-            page.getSwipeBackLayout().setX(-offset * (1 - percent));
+            page.getSwipeBackLayout().setX(-offset * Math.max(1 - percent,0));
             if (percent == 0){
                 page.getSwipeBackLayout().setX(0);
             }
@@ -39,6 +39,7 @@ public class RelateSlider implements SwipeListener {
 
     @Override
     public void onScrollToClose() {
-
+        SwipeBackPage page = SwipeBackHelper.getPrePage(curPage);
+        page.getSwipeBackLayout().setX(0);
     }
 }
