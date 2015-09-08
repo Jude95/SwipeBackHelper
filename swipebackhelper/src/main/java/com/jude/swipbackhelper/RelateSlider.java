@@ -1,5 +1,7 @@
 package com.jude.swipbackhelper;
 
+import android.util.Log;
+
 /**
  * Created by Mr.Jude on 2015/8/26.
  */

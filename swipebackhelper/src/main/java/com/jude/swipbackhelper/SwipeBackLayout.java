@@ -69,7 +69,7 @@ public class SwipeBackLayout extends FrameLayout {
      */
     private List<SwipeListener> mListeners;
 
-    private Drawable mShadowLeft;
+    Drawable mShadowLeft;
 
     private float mScrimOpacity;
 
@@ -359,24 +359,11 @@ public class SwipeBackLayout extends FrameLayout {
         @Override
         public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
             super.onViewPositionChanged(changedView, left, top, dx, dy);
-            mScrollPercent = Math.abs((float) left / (mContentView.getWidth() + mShadowLeft.getIntrinsicWidth()));
+            mScrollPercent = Math.abs((float) left / (mContentView.getWidth() /*+ mShadowLeft.getIntrinsicWidth()*/));
             mContentLeft = left;
             invalidate();
             if (mScrollPercent < mScrollThreshold && !mIsScrollOverValid) {
                 mIsScrollOverValid = true;
-            }
-
-            if (mScrollPercent >= 1) {
-                if (!mActivity.isFinishing()){
-                    mActivity.finish();
-                    if (mListeners != null && !mListeners.isEmpty()
-                            && mScrollPercent >= mScrollThreshold && mIsScrollOverValid) {
-                        mIsScrollOverValid = false;
-                        for (SwipeListener listener : mListeners) {
-                            listener.onScrollToClose();
-                        }
-                    }
-                }
             }
 
             if (mListeners != null && !mListeners.isEmpty()) {
@@ -384,6 +371,21 @@ public class SwipeBackLayout extends FrameLayout {
                     listener.onScroll(mScrollPercent, mContentLeft);
                 }
             }
+
+            if (mScrollPercent >= 1) {
+                if (!mActivity.isFinishing()){
+                    if (mListeners != null && !mListeners.isEmpty()
+                            && mScrollPercent >= mScrollThreshold && mIsScrollOverValid) {
+                        mIsScrollOverValid = false;
+                        for (SwipeListener listener : mListeners) {
+                            listener.onScrollToClose();
+                        }
+                    }
+                    mActivity.finish();
+                }
+            }
+
+
         }
 
         @Override
