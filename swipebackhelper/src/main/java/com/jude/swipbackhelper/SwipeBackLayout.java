@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -252,7 +253,14 @@ public class SwipeBackLayout extends FrameLayout {
         if (!mEnable) {
             return false;
         }
-        mDragHelper.processTouchEvent(event);
+        try {
+            mDragHelper.processTouchEvent(event);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // FIXME: handle exception
+            // issues #9
+            Log.i("SWIP", "ERROR");
+            return false;
+        }
         return true;
     }
 

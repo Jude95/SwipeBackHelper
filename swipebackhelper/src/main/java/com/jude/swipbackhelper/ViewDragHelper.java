@@ -61,6 +61,7 @@ public class ViewDragHelper {
      */
     public static final int STATE_SETTLING = 2;
 
+    public static final int STATE_JUDGING = 3;
     /**
      * Edge flag indicating that the left edge should be affected.
      */
@@ -547,7 +548,7 @@ public class ViewDragHelper {
         mCapturedView = childView;
         mActivePointerId = activePointerId;
         mCallback.onViewCaptured(childView, activePointerId);
-        setDragState(STATE_DRAGGING);
+        setDragState(STATE_JUDGING);
     }
 
     /**
@@ -1043,6 +1044,7 @@ public class ViewDragHelper {
      * onInterceptTouchEvent
      */
     public boolean shouldInterceptTouchEvent(MotionEvent ev) {
+
         final int action = MotionEventCompat.getActionMasked(ev);
         final int actionIndex = MotionEventCompat.getActionIndex(ev);
 
@@ -1104,6 +1106,7 @@ public class ViewDragHelper {
             case MotionEvent.ACTION_MOVE: {
                 // First to cross a touch slop over a draggable view wins. Also
                 // report edge drags.
+
                 final int pointerCount = MotionEventCompat.getPointerCount(ev);
                 for (int i = 0; i < pointerCount; i++) {
                     final int pointerId = MotionEventCompat.getPointerId(ev, i);
@@ -1119,8 +1122,9 @@ public class ViewDragHelper {
                     }
 
                     final View toCapture = findTopChildUnder((int) x, (int) y);
-                    if (toCapture != null && checkTouchSlop(toCapture, dx, dy)
-                            && tryCaptureViewForDrag(toCapture, pointerId)) {
+                    int slop = checkTouchSlop(toCapture, dx, dy);
+                    if (slop==-1)cancel();
+                    else if (slop>0&&tryCaptureViewForDrag(toCapture, pointerId)){
                         break;
                     }
                 }
@@ -1152,6 +1156,7 @@ public class ViewDragHelper {
      * @param ev The touch event received by the parent view
      */
     public void processTouchEvent(MotionEvent ev) {
+
         final int action = MotionEventCompat.getActionMasked(ev);
         final int actionIndex = MotionEventCompat.getActionIndex(ev);
 
@@ -1232,6 +1237,7 @@ public class ViewDragHelper {
 
                     saveLastMotion(ev);
                 } else {
+
                     // Check to see if any pointer is now over a draggable view.
                     final int pointerCount = MotionEventCompat.getPointerCount(ev);
                     for (int i = 0; i < pointerCount; i++) {
@@ -1248,8 +1254,9 @@ public class ViewDragHelper {
                         }
 
                         final View toCapture = findTopChildUnder((int) x, (int) y);
-                        if (checkTouchSlop(toCapture, dx, dy)
-                                && tryCaptureViewForDrag(toCapture, pointerId)) {
+                        int slop = checkTouchSlop(toCapture, dx, dy);
+                        if (slop==-1)cancel();
+                        else if (slop>0&&tryCaptureViewForDrag(toCapture, pointerId)){
                             break;
                         }
                     }
@@ -1355,88 +1362,25 @@ public class ViewDragHelper {
      * @param child Child to check
      * @param dx    Motion since initial position along X axis
      * @param dy    Motion since initial position along Y axis
-     * @return true if the touch slop has been crossed
+     * @return 1 if the touch slop has been crossed on horizontal
+     *          0 if the touch slop has not cross
+     *          -1 if the touch slop has been crossed on vertical
+     *          2 if the touch slop has been crossed on both
      */
-    private boolean checkTouchSlop(View child, float dx, float dy) {
+    private int checkTouchSlop(View child, float dx, float dy) {
         if (child == null) {
-            return false;
+            return 0;
         }
-        final boolean checkHorizontal = mCallback.getViewHorizontalDragRange(child) > 0;
-        final boolean checkVertical = mCallback.getViewVerticalDragRange(child) > 0;
-
-        if (checkHorizontal && checkVertical) {
-            return dx * dx + dy * dy > mTouchSlop * mTouchSlop;
-        } else if (checkHorizontal) {
-            return Math.abs(dx) > mTouchSlop;
-        } else if (checkVertical) {
-            return Math.abs(dy) > mTouchSlop;
+        if (dx<=mTouchSlop&&Math.abs(dy) <= mTouchSlop)return 0;
+        else if (dx>mTouchSlop&&Math.abs(dy) <= mTouchSlop){
+            mDragState = STATE_DRAGGING;
+            return 1;
         }
-        return false;
-    }
-
-    /**
-     * Check if any pointer tracked in the current gesture has crossed the
-     * required slop threshold.
-     * <p>
-     * This depends on internal state populated by
-     * {@link #shouldInterceptTouchEvent(MotionEvent)} or
-     * {@link #processTouchEvent(MotionEvent)}. You should only
-     * rely on the results of this method after all currently available touch
-     * data has been provided to one of these two methods.
-     * </p>
-     *
-     * @param directions Combination of direction flags, see
-     *                   {@link #DIRECTION_HORIZONTAL}, {@link #DIRECTION_VERTICAL},
-     *                   {@link #DIRECTION_ALL}
-     * @return true if the slop threshold has been crossed, false otherwise
-     */
-    public boolean checkTouchSlop(int directions) {
-        final int count = mInitialMotionX.length;
-        for (int i = 0; i < count; i++) {
-            if (checkTouchSlop(directions, i)) {
-                return true;
-            }
+        else if (dx<=mTouchSlop&&Math.abs(dy) > mTouchSlop){
+            cancel();
+            return -1;
         }
-        return false;
-    }
-
-    /**
-     * Check if the specified pointer tracked in the current gesture has crossed
-     * the required slop threshold.
-     * <p>
-     * This depends on internal state populated by
-     * {@link #shouldInterceptTouchEvent(MotionEvent)} or
-     * {@link #processTouchEvent(MotionEvent)}. You should only
-     * rely on the results of this method after all currently available touch
-     * data has been provided to one of these two methods.
-     * </p>
-     *
-     * @param directions Combination of direction flags, see
-     *                   {@link #DIRECTION_HORIZONTAL}, {@link #DIRECTION_VERTICAL},
-     *                   {@link #DIRECTION_ALL}
-     * @param pointerId  ID of the pointer to slop check as specified by
-     *                   MotionEvent
-     * @return true if the slop threshold has been crossed, false otherwise
-     */
-    public boolean checkTouchSlop(int directions, int pointerId) {
-        if (!isPointerDown(pointerId)) {
-            return false;
-        }
-
-        final boolean checkHorizontal = (directions & DIRECTION_HORIZONTAL) == DIRECTION_HORIZONTAL;
-        final boolean checkVertical = (directions & DIRECTION_VERTICAL) == DIRECTION_VERTICAL;
-
-        final float dx = mLastMotionX[pointerId] - mInitialMotionX[pointerId];
-        final float dy = mLastMotionY[pointerId] - mInitialMotionY[pointerId];
-
-        if (checkHorizontal && checkVertical) {
-            return dx * dx + dy * dy > mTouchSlop * mTouchSlop;
-        } else if (checkHorizontal) {
-            return Math.abs(dx) > mTouchSlop;
-        } else if (checkVertical) {
-            return Math.abs(dy) > mTouchSlop;
-        }
-        return false;
+        return 2;
     }
 
     /**
