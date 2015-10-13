@@ -255,7 +255,7 @@ public class SwipeBackLayout extends FrameLayout {
         }
         try {
             mDragHelper.processTouchEvent(event);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (Exception e) {
             // FIXME: handle exception
             // issues #9
             Log.i("SWIP", "ERROR");

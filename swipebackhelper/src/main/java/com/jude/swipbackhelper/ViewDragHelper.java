@@ -1236,7 +1236,7 @@ public class ViewDragHelper {
                     dragTo(mCapturedView.getLeft() + idx, mCapturedView.getTop() + idy, idx, idy);
 
                     saveLastMotion(ev);
-                } else {
+                } else if (mDragState == STATE_JUDGING){
 
                     // Check to see if any pointer is now over a draggable view.
                     final int pointerCount = MotionEventCompat.getPointerCount(ev);
