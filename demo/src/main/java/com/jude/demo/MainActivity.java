@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
 
@@ -13,9 +14,9 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Fresco.initialize(this);
         SwipeBackHelper.getCurrentPage(this)
-                .setSwipeBackEnable(false)
-                .setSwipeEdgePercent(0.3f);
+                .setSwipeBackEnable(false);
     }
 
 

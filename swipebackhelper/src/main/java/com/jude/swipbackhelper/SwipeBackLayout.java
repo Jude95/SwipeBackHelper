@@ -258,7 +258,7 @@ public class SwipeBackLayout extends FrameLayout {
         } catch (Exception e) {
             // FIXME: handle exception
             // issues #9
-            Log.i("SWIP", "ERROR");
+            Log.i("SWIP", "ERROR:"+e.getLocalizedMessage());
             return false;
         }
         return true;

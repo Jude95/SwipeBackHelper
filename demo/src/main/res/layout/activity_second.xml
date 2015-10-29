@@ -3,13 +3,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/container"
-        android:text="Second"
-        android:gravity="center"
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textSize="32sp"/>
+        android:background="@color/DeepPurple"/>
 
 
 </LinearLayout>
