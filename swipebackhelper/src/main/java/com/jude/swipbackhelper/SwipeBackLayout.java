@@ -241,15 +241,17 @@ public class SwipeBackLayout extends FrameLayout {
         }
         try {
             return mDragHelper.shouldInterceptTouchEvent(event);
-        } catch (ArrayIndexOutOfBoundsException e) {
+        } catch (Exception e) {
             // FIXME: handle exception
-            // issues #9
+            e.printStackTrace();
+            Log.i("SWIP", "Intercept ERROR:" + e.getLocalizedMessage());
             return false;
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        Log.i("SWIP", "onTouchEvent");
         if (!mEnable) {
             return false;
         }
@@ -257,8 +259,8 @@ public class SwipeBackLayout extends FrameLayout {
             mDragHelper.processTouchEvent(event);
         } catch (Exception e) {
             // FIXME: handle exception
-            // issues #9
-            Log.i("SWIP", "ERROR:"+e.getLocalizedMessage());
+            e.printStackTrace();
+            Log.i("SWIP", "Process ERROR:" + e.getLocalizedMessage());
             return false;
         }
         return true;
