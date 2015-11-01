@@ -244,14 +244,12 @@ public class SwipeBackLayout extends FrameLayout {
         } catch (Exception e) {
             // FIXME: handle exception
             e.printStackTrace();
-            Log.i("SWIP", "Intercept ERROR:" + e.getLocalizedMessage());
             return false;
         }
     }
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.i("SWIP", "onTouchEvent");
         if (!mEnable) {
             return false;
         }
@@ -260,7 +258,6 @@ public class SwipeBackLayout extends FrameLayout {
         } catch (Exception e) {
             // FIXME: handle exception
             e.printStackTrace();
-            Log.i("SWIP", "Process ERROR:" + e.getLocalizedMessage());
             return false;
         }
         return true;

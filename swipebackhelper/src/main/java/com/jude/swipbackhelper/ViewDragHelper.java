@@ -21,7 +21,6 @@ import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ScrollerCompat;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -582,7 +581,6 @@ public class ViewDragHelper {
      * ACTION_CANCEL event.
      */
     public void cancel() {
-        Log.i("SWIP","cancel");
         mActivePointerId = INVALID_POINTER;
         clearMotionHistory();
 
