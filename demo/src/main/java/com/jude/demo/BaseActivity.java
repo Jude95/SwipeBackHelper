@@ -19,7 +19,6 @@ public class BaseActivity extends AppCompatActivity {
                 .setSwipeBackEnable(true)
                 .setSwipeEdge(200)
                 .setSwipeSensitivity(0.5f)
-                .setClosePercent(0.5f)
                 .setSwipeRelateEnable(true)
                 .setSwipeSensitivity(1);
     }

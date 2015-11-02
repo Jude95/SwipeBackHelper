@@ -18,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SwipeBackLayout extends FrameLayout {
+    private static final String TAG = "ViewDragHelper";
+
     /**
      * Minimum velocity that will be detected as a fling
      */
@@ -257,9 +259,11 @@ public class SwipeBackLayout extends FrameLayout {
             mDragHelper.processTouchEvent(event);
         } catch (Exception e) {
             // FIXME: handle exception
+            Log.i(TAG,"Error");
             e.printStackTrace();
             return false;
         }
+        Log.i(TAG,"return true");
         return true;
     }
 

@@ -3,7 +3,6 @@ package com.jude.demo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,13 +11,13 @@ import com.jude.easyrecyclerview.EasyRecyclerView;
 import java.util.ArrayList;
 
 
-public class SecondActivity extends BaseActivity {
+public class ScrollActivity extends BaseActivity {
     EasyRecyclerView recycler;
     PersonAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_second);
+        setContentView(R.layout.activity_scroll);
         recycler = (EasyRecyclerView) findViewById(R.id.recycler);
         recycler.setLayoutManager(new LinearLayoutManager(this));
         recycler.setAdapter(adapter=new PersonAdapter(this));
@@ -52,7 +51,7 @@ public class SecondActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.open){
-            startActivity(new Intent(this,SecondActivity.class));
+            startActivity(new Intent(this,ScrollActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
