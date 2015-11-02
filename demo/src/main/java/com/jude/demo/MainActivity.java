@@ -29,7 +29,7 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.open){
-            if(Math.random()>1)
+            if(Math.random()>0.5)
                 startActivity(new Intent(this,ScrollActivity.class));
             else
                 startActivity(new Intent(this,StaticActivity.class));

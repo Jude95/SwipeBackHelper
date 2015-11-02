@@ -51,7 +51,10 @@ public class ScrollActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.open){
-            startActivity(new Intent(this,ScrollActivity.class));
+            if(Math.random()>0.5)
+                startActivity(new Intent(this,ScrollActivity.class));
+            else
+                startActivity(new Intent(this,StaticActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
