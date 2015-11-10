@@ -2,6 +2,8 @@ package com.jude.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 
 public class ScrollActivity extends BaseActivity {
     EasyRecyclerView recycler;
+    Handler mHandler;
     PersonAdapter adapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +23,8 @@ public class ScrollActivity extends BaseActivity {
         setContentView(R.layout.activity_scroll);
         recycler = (EasyRecyclerView) findViewById(R.id.recycler);
         recycler.setLayoutManager(new LinearLayoutManager(this));
-        recycler.setAdapter(adapter=new PersonAdapter(this));
+        recycler.setAdapter(adapter = new PersonAdapter(this));
+        mHandler = new Handler();
         ArrayList<Person> arr = new ArrayList<>();
         arr.add(new Person("http://i2.hdslb.com/52_52/user/61175/6117592/myface.jpg", "月の星く雪", "完结来补"));
         arr.add(new Person("http://i1.hdslb.com/52_52/user/6738/673856/myface.jpg", "影·蓝玉", "一看评论被***了一脸，伐开心。"));
@@ -40,6 +44,28 @@ public class ScrollActivity extends BaseActivity {
         arr.add(new Person("http://i2.hdslb.com/52_52/user/66723/6672394/myface.jpg", "道尘一梦", "@伪 · 卫宫士郎"));
 
         adapter.addAll(arr);
+        recycler.setRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Thread.sleep(1000);
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    recycler.getSwipeToRefresh().setRefreshing(false);
+                                }
+                            });
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                }).start();
+            }
+        });
     }
 
     @Override
