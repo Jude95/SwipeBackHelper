@@ -27,7 +27,6 @@ public class PersonViewHolder extends BaseViewHolder<Person> {
 
     @Override
     public void setData(final Person person){
-        Log.i("Test","Test"+person.getName());
         mTv_name.setText(person.getName());
         mTv_sign.setText(person.getSign());
         mImg_face.setImageURI(Uri.parse(person.getFace()));

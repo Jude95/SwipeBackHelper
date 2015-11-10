@@ -21,7 +21,6 @@ import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ScrollerCompat;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -1054,7 +1053,6 @@ public class ViewDragHelper {
             // the whole previous stream.
             cancel();
         }
-        Log.i(TAG,"shouldInterceptTouchEvent："+action);
 
         if (mVelocityTracker == null) {
             mVelocityTracker = VelocityTracker.obtain();
@@ -1088,24 +1086,21 @@ public class ViewDragHelper {
                 break;
             }
             case MotionEvent.ACTION_MOVE: {
-                Log.i(TAG,"mDragState："+mDragState);
                 if (mDragState == STATE_JUDGING) {
 
                         final int i = MotionEventCompat.findPointerIndex(ev, mActivePointerId);
+
                         final float x = MotionEventCompat.getX(ev, i);
                         final float y = MotionEventCompat.getY(ev, i);
                         final float dx = x - mInitialMotionX[mActivePointerId];
                         final float dy = y - mInitialMotionY[mActivePointerId];
 
                         reportNewEdgeDrags(dx, dy, mActivePointerId);
-                        if (mDragState == STATE_DRAGGING) {
-                            // Callback might have started an edge drag.
-                            break;
-                        }
 
                         final View toCapture = findTopChildUnder((int) x, (int) y);
                         int slop = checkTouchSlop(toCapture, dx, dy);
-                        if (slop == -1) cancel();
+
+                    if (slop == -1) cancel();
                         else if (slop > 0 && tryCaptureViewForDrag(toCapture, mActivePointerId)) {
                             break;
                         }
@@ -1126,7 +1121,6 @@ public class ViewDragHelper {
             }
 
         }
-        Log.i(TAG,"mActivePointerId:"+mActivePointerId);
         return mDragState == STATE_DRAGGING;
     }
 
@@ -1141,7 +1135,6 @@ public class ViewDragHelper {
 
         final int action = MotionEventCompat.getActionMasked(ev);
         final int actionIndex = MotionEventCompat.getActionIndex(ev);
-        Log.i(TAG,"processTouchEvent:"+action);
 
         if (action == MotionEvent.ACTION_DOWN) {
             // Reset things for a new event stream, just in case we didn't get
@@ -1186,7 +1179,6 @@ public class ViewDragHelper {
                 if (mDragState == STATE_JUDGING) {
 
                     final int i = MotionEventCompat.findPointerIndex(ev, mActivePointerId);
-                    Log.i(TAG,"mActivePointerId"+mActivePointerId+" index"+i);
                     final float x = MotionEventCompat.getX(ev, i);
                     final float y = MotionEventCompat.getY(ev, i);
                     final float dx = x - mInitialMotionX[mActivePointerId];
@@ -1302,12 +1294,15 @@ public class ViewDragHelper {
         if (child == null) {
             return 0;
         }
-        if (dx<=mTouchSlop&&Math.abs(dy) <= mTouchSlop)return 0;
+        if (dx<=mTouchSlop&&Math.abs(dy) <= mTouchSlop){
+            return 0;
+        }
         else if (dx>mTouchSlop&&Math.abs(dy) <= mTouchSlop){
             mDragState = STATE_DRAGGING;
             return 1;
         }
         else if (dx<=mTouchSlop&&Math.abs(dy) > mTouchSlop){
+            mDragState = STATE_IDLE;
             cancel();
             return -1;
         }
