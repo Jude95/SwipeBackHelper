@@ -259,11 +259,9 @@ public class SwipeBackLayout extends FrameLayout {
             mDragHelper.processTouchEvent(event);
         } catch (Exception e) {
             // FIXME: handle exception
-            Log.i(TAG,"Error");
             e.printStackTrace();
             return false;
         }
-        Log.i(TAG,"return true");
         return true;
     }
 
