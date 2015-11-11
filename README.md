@@ -1,6 +1,6 @@
 # SwipeBackHelper  
 
-[中文](https://github.com/Jude95/SwipeBackHelper/blob/master/README.md) | [英文](https://github.com/Jude95/SwipeBackHelper/blob/master/README_en.md)
+[中文](https://github.com/Jude95/SwipeBackHelper/blob/master/README.md) | [English](https://github.com/Jude95/SwipeBackHelper/blob/master/README_en.md)
 
 代码修改自[SwipeBackLayout](https://github.com/ikew0ng/SwipeBackLayout)  
 去掉了左滑上滑等不常用功能。

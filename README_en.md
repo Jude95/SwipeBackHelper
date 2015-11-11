@@ -1,5 +1,5 @@
 # SwipeBackHelper 
-[中文](https://github.com/Jude95/SwipeBackHelper/blob/master/README.md) | [英文](https://github.com/Jude95/SwipeBackHelper/blob/master/README_en.md)
+[中文](https://github.com/Jude95/SwipeBackHelper/blob/master/README.md) | [English](https://github.com/Jude95/SwipeBackHelper/blob/master/README_en.md)
 
 Only three lines of code makes activity swipe close.
 Part of the code modified from [SwipeBackLayout](https://github.com/ikew0ng/SwipeBackLayout)  
