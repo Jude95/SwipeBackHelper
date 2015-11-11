@@ -2,11 +2,11 @@
 
 [中文](https://github.com/Jude95/SwipeBackHelper/blob/master/README.md) | [English](https://github.com/Jude95/SwipeBackHelper/blob/master/README_en.md)
 
-代码修改自[SwipeBackLayout](https://github.com/ikew0ng/SwipeBackLayout)  
-去掉了左滑上滑等不常用功能。
-有与微信相同的下级activity联动效果。
-将滑动部分与Activity解耦.在自己的Activity中3个生命周期中加一行代码即可。
-解决可设置滑动范围只有半个屏幕的限制。   
+有与微信相同的下级activity联动效果。  
+滑动部分与Activity解耦.在自己的Activity中3个生命周期中加一行代码即可。  
+实现原理，在Activity的Window的decorView与它的子View中间插入一个View来进行手势处理与位移效果。  
+
+部分代码修改自[SwipeBackLayout](https://github.com/ikew0ng/SwipeBackLayout)  
 ![swipeback.png](swipeback.gif)
 
 ##依赖
