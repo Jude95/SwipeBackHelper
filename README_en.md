@@ -45,7 +45,7 @@ Add this code into your activity's lifecycle。
 If you need more setting,you can use this after `SwipeBackHelper.onCreate()`：
 
     SwipeBackHelper.getCurrentPage(this)//get current instance
-        .setSwipeBackEnable(true)//Enable 
+        .setSwipeBackEnable(true)//on-off 
         .setSwipeEdge(200)//set the touch area。200 mean only the left 200px of screen can touch to begin swipe.
         .setSwipeEdgePercent(0.2f)//0.2 mean left 20% of screen can touch to begin swipe.
         .setSwipeSensitivity(0.5f)//sensitiveness of the gesture。0:slow  1:sensitive
