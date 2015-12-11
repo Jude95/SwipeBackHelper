@@ -10,7 +10,7 @@
 ![swipeback.png](swipeback.gif)
 
 ##依赖
-`compile 'com.jude:swipebackhelper:2.1.4'`
+`compile 'com.jude:swipebackhelper:2.1.5'`
 
 ##配置
 在`style.xml`中添加

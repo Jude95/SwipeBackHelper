@@ -40,6 +40,6 @@ public class RelateSlider implements SwipeListener {
     @Override
     public void onScrollToClose() {
         SwipeBackPage page = SwipeBackHelper.getPrePage(curPage);
-        if (page==null) page.getSwipeBackLayout().setX(0);
+        if (page!=null) page.getSwipeBackLayout().setX(0);
     }
 }
