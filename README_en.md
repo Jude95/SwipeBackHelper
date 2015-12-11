@@ -7,7 +7,7 @@ Part of the code modified from [SwipeBackLayout](https://github.com/ikew0ng/Swip
 ![swipeback.png](swipeback.gif)
 
 ##Dependency
-`compile 'com.jude:swipebackhelper:2.1.3'`
+`compile 'com.jude:swipebackhelper:2.1.4'`
 
 ##Usage
 Add this to`style.xml`:

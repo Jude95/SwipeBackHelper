@@ -1,7 +1,5 @@
 package com.jude.swipbackhelper;
 
-import android.util.Log;
-
 /**
  * Created by Mr.Jude on 2015/8/26.
  */
@@ -42,6 +40,6 @@ public class RelateSlider implements SwipeListener {
     @Override
     public void onScrollToClose() {
         SwipeBackPage page = SwipeBackHelper.getPrePage(curPage);
-        page.getSwipeBackLayout().setX(0);
+        if (page==null) page.getSwipeBackLayout().setX(0);
     }
 }
