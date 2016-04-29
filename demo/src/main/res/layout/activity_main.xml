@@ -3,12 +3,28 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity"
     android:orientation="vertical">
+
+    <Button
+        android:id="@+id/btn_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextActivity"/>
+    <Button
+        android:id="@+id/btn_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ScrollActivity"/>
+    <Button
+        android:id="@+id/btn_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ViewPagerActivity"/>
     <TextView
         android:id="@+id/container"
         android:text="请把MainActivity的windowIsTranslucent属性设为false,并不允许滑动"
         android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:textSize="32sp"
         android:clickable="true"/>
 

@@ -13,7 +13,7 @@ import com.jude.easyrecyclerview.EasyRecyclerView;
 import java.util.ArrayList;
 
 
-public class ScrollActivity extends BaseActivity {
+public class ListActivity extends BaseActivity {
     EasyRecyclerView recycler;
     Handler mHandler;
     PersonAdapter adapter;
@@ -77,10 +77,7 @@ public class ScrollActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.open){
-            if(Math.random()>0.5)
-                startActivity(new Intent(this,ScrollActivity.class));
-            else
-                startActivity(new Intent(this,StaticActivity.class));
+                startActivity(new Intent(this,ListActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }

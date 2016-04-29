@@ -17,8 +17,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ScrollActivity" android:label="ScrollActivity"/>
-        <activity android:name=".StaticActivity" android:label="StaticActivity"/>
+        <activity android:name=".ListActivity" android:label="ScrollActivity"/>
+        <activity android:name=".TextActivity" android:label="StaticActivity"/>
+        <activity android:name=".ViewPagerActivity" android:label="ViewPagerActivity"/>
     </application>
 
 </manifest>

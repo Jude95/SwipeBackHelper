@@ -2,14 +2,17 @@ package com.jude.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.view.View;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.swipbackhelper.SwipeBackHelper;
 
-
-public class MainActivity extends BaseActivity {
+/**
+ * 1.ViewPager的冲突处理
+ * 2.滑动动画中的二次点击导致动画停止bug
+ * 3.false的时候不嵌入SwipeBackLayout
+ */
+public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,24 +20,20 @@ public class MainActivity extends BaseActivity {
         Fresco.initialize(this);
         SwipeBackHelper.getCurrentPage(this)
                 .setSwipeBackEnable(false);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main,menu);
-        return true;
+        findViewById(R.id.btn_text).setOnClickListener(this);
+        findViewById(R.id.btn_scroll).setOnClickListener(this);
+        findViewById(R.id.btn_viewpager).setOnClickListener(this);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.open){
-            if(Math.random()>0.5)
-                startActivity(new Intent(this,ScrollActivity.class));
-            else
-                startActivity(new Intent(this,StaticActivity.class));
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btn_text:
+                startActivity(new Intent(this,TextActivity.class));break;
+            case R.id.btn_scroll:
+                startActivity(new Intent(this,ListActivity.class));break;
+            case R.id.btn_viewpager:
+                startActivity(new Intent(this,ViewPagerActivity.class));break;
         }
-        return super.onOptionsItemSelected(item);
     }
-
 }

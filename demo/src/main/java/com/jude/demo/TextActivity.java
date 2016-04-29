@@ -8,7 +8,7 @@ import android.view.MenuItem;
 /**
  * Created by Mr.Jude on 2015/11/2.
  */
-public class StaticActivity extends BaseActivity {
+public class TextActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,10 +25,7 @@ public class StaticActivity extends BaseActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.open){
-            if(Math.random()>0.5)
-                startActivity(new Intent(this,ScrollActivity.class));
-            else
-                startActivity(new Intent(this,StaticActivity.class));
+                startActivity(new Intent(this,TextActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
