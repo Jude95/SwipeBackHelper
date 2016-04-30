@@ -7,7 +7,7 @@ Part of the code modified from [SwipeBackLayout](https://github.com/ikew0ng/Swip
 ![swipeback.png](swipeback.gif)
 
 ##Dependency
-`compile 'com.jude:swipebackhelper:2.1.5'`
+`compile 'com.jude:swipebackhelper:3.0.1'`
 
 ##Usage
 Add this to`style.xml`:
@@ -53,6 +53,7 @@ If you need more setting,you can use this after `SwipeBackHelper.onCreate()`：
         .setClosePercent(0.8f)//close activity when swipe over this 
         .setSwipeRelateEnable(false)//if should move together with the following Activity
         .setSwipeRelateOffset(500)//the Offset of following Activity when setSwipeRelateEnable(true)
+.setDisallowInterceptTouchEvent(true)//your view can hand the events first.default false;
         .addListener(new SwipeListener() {
 
             @Override
