@@ -6,10 +6,11 @@ import android.view.View;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.swipbackhelper.SwipeBackHelper;
+import com.jude.utils.JUtils;
 
 /**
  * 1.ViewPager的冲突处理
- * 2.滑动动画中的二次点击导致动画停止bug
+// * 2.滑动动画中的二次点击导致动画停止bug
  * 3.false的时候不嵌入SwipeBackLayout
  */
 public class MainActivity extends BaseActivity implements View.OnClickListener{
@@ -17,7 +18,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Fresco.initialize(this);
+        Fresco.initialize(getApplication());
+        JUtils.initialize(getApplication());
         SwipeBackHelper.getCurrentPage(this)
                 .setSwipeBackEnable(false);
         findViewById(R.id.btn_text).setOnClickListener(this);

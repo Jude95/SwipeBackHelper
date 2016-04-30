@@ -23,8 +23,9 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:23.0.1'
     compile 'com.facebook.fresco:fresco:0.7.0+'
-    compile 'com.jude:easyrecyclerview:3.2.2'
+    compile 'com.jude:easyrecyclerview:3.5.0'
     compile 'com.jude:rollviewpager:1.2.9'
+    compile 'com.jude:utils:1.1.1'
     compile project(':swipebackhelper')
 }
 

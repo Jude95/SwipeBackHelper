@@ -1,14 +1,23 @@
 package com.jude.demo;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 
 import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.jude.rollviewpager.RollPagerView;
+import com.jude.rollviewpager.hintview.ColorPointHintView;
+import com.jude.swipbackhelper.SwipeBackHelper;
+import com.jude.utils.JUtils;
 
 import java.util.ArrayList;
 
@@ -66,6 +75,25 @@ public class ListActivity extends BaseActivity {
                 }).start();
             }
         });
+        adapter.addHeader(new RecyclerArrayAdapter.ItemView() {
+            @Override
+            public View onCreateView(ViewGroup parent) {
+                RollPagerView header = new RollPagerView(ListActivity.this);
+                header.setHintView(new ColorPointHintView(ListActivity.this, Color.YELLOW,Color.GRAY));
+                header.setPlayDelay(2000);
+                header.setLayoutParams(new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, JUtils.dip2px(200)));
+                header.setAdapter(new ViewPagerActivity.TestNomalAdapter());
+                return header;
+            }
+
+            @Override
+            public void onBindView(View headerView) {
+
+            }
+        });
+        SwipeBackHelper.getCurrentPage(this)
+                .setSwipeBackEnable(false)
+        .setSwipeBackEnable(true);
     }
 
     @Override

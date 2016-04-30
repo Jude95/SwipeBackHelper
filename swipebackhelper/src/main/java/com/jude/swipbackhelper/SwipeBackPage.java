@@ -43,6 +43,11 @@ public class SwipeBackPage {
 
     //是否可滑动关闭
     public SwipeBackPage setSwipeBackEnable(boolean enable) {
+        if (enable){
+            mSwipeBackLayout.attachToActivity(mActivity);
+        }else {
+            mSwipeBackLayout.removeFromActivity(mActivity);
+        }
         mSwipeBackLayout.setEnableGesture(enable);
         return this;
     }
@@ -74,6 +79,11 @@ public class SwipeBackPage {
     //触发关闭Activity百分比
     public SwipeBackPage setClosePercent(float percent){
         mSwipeBackLayout.setScrollThreshold(percent);
+        return this;
+    }
+
+    public SwipeBackPage setDisallowInterceptTouchEvent(boolean disallowIntercept){
+        mSwipeBackLayout.setDisallowInterceptTouchEvent(disallowIntercept);
         return this;
     }
 

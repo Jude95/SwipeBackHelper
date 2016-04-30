@@ -25,7 +25,7 @@ public class ViewPagerActivity extends BaseActivity {
         mPagerView.setAdapter(new TestNomalAdapter());
     }
 
-    private class TestNomalAdapter extends StaticPagerAdapter {
+    public static class TestNomalAdapter extends StaticPagerAdapter {
         private int[] imgs = {
                 R.drawable.img1,
                 R.drawable.img2,
@@ -48,6 +48,7 @@ public class ViewPagerActivity extends BaseActivity {
             return imgs.length;
         }
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main,menu);

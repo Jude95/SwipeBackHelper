@@ -21,6 +21,7 @@ import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.VelocityTrackerCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ScrollerCompat;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -548,7 +549,6 @@ public class ViewDragHelper {
         mCapturedView = childView;
         mActivePointerId = activePointerId;
         mCallback.onViewCaptured(childView, activePointerId);
-        setDragState(STATE_JUDGING);
     }
 
     /**
@@ -1044,7 +1044,6 @@ public class ViewDragHelper {
      * onInterceptTouchEvent
      */
     public boolean shouldInterceptTouchEvent(MotionEvent ev) {
-
         final int action = MotionEventCompat.getActionMasked(ev);
         final int actionIndex = MotionEventCompat.getActionIndex(ev);
 
@@ -1071,9 +1070,14 @@ public class ViewDragHelper {
                 // Catch a settling view if possible.
                 tryCaptureViewForDrag(toCapture, pointerId);
 
-                final int edgesTouched = mInitialEdgeTouched[pointerId];
-                if ((edgesTouched & mTrackingEdges) != 0) {
-                    mCallback.onEdgeTouched(edgesTouched & mTrackingEdges, pointerId);
+                if (mDragState == STATE_SETTLING){
+                    setDragState(STATE_DRAGGING);
+                }else if (mDragState == STATE_IDLE){
+                    final int edgesTouched = mInitialEdgeTouched[pointerId];
+                    if ((edgesTouched & mTrackingEdges) != 0) {
+                        mCallback.onEdgeTouched(edgesTouched & mTrackingEdges, pointerId);
+                    }
+                    setDragState(STATE_JUDGING);
                 }
                 break;
             }
@@ -1081,7 +1085,6 @@ public class ViewDragHelper {
                 final int pointerId = MotionEventCompat.getPointerId(ev, actionIndex);
                 final float x = MotionEventCompat.getX(ev, actionIndex);
                 final float y = MotionEventCompat.getY(ev, actionIndex);
-
                 saveInitialMotion(x, y, pointerId);
                 break;
             }
@@ -1114,8 +1117,14 @@ public class ViewDragHelper {
                 break;
             }
 
-            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_UP: {
+                releaseViewForPointerUp();
+                cancel();
+                break;
+            }
+
             case MotionEvent.ACTION_CANCEL: {
+                dispatchViewReleased(0, 0);
                 cancel();
                 break;
             }
@@ -1159,9 +1168,14 @@ public class ViewDragHelper {
                 // Catch a settling view if possible.
                 tryCaptureViewForDrag(toCapture, pointerId);
 
-                final int edgesTouched = mInitialEdgeTouched[pointerId];
-                if ((edgesTouched & mTrackingEdges) != 0) {
-                    mCallback.onEdgeTouched(edgesTouched & mTrackingEdges, pointerId);
+                if (mDragState == STATE_SETTLING){
+                    setDragState(STATE_DRAGGING);
+                }else if (mDragState == STATE_IDLE){
+                    final int edgesTouched = mInitialEdgeTouched[pointerId];
+                    if ((edgesTouched & mTrackingEdges) != 0) {
+                        mCallback.onEdgeTouched(edgesTouched & mTrackingEdges, pointerId);
+                    }
+                    setDragState(STATE_JUDGING);
                 }
                 break;
             }
@@ -1222,17 +1236,13 @@ public class ViewDragHelper {
             }
 
             case MotionEvent.ACTION_UP: {
-                if (mDragState == STATE_DRAGGING) {
                     releaseViewForPointerUp();
-                }
                 cancel();
                 break;
             }
 
             case MotionEvent.ACTION_CANCEL: {
-                if (mDragState == STATE_DRAGGING) {
                     dispatchViewReleased(0, 0);
-                }
                 cancel();
                 break;
             }
@@ -1404,11 +1414,7 @@ public class ViewDragHelper {
      * otherwise
      */
     public boolean isViewUnder(View view, int x, int y) {
-        if (view == null) {
-            return false;
-        }
-        return x >= view.getLeft() && x < view.getRight() && y >= view.getTop()
-                && y < view.getBottom();
+        return view != null;
     }
 
     /**
@@ -1422,15 +1428,7 @@ public class ViewDragHelper {
      * @return The topmost child view under (x, y) or null if none found.
      */
     public View findTopChildUnder(int x, int y) {
-        final int childCount = mParentView.getChildCount();
-        for (int i = childCount - 1; i >= 0; i--) {
-            final View child = mParentView.getChildAt(mCallback.getOrderedChildIndex(i));
-            if (x >= child.getLeft() && x < child.getRight() && y >= child.getTop()
-                    && y < child.getBottom()) {
-                return child;
-            }
-        }
-        return null;
+        return mParentView.getChildAt(0);
     }
 
     private int getEdgeTouched(int x, int y) {
