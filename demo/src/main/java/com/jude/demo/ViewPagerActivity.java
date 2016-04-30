@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.StaticPagerAdapter;
+import com.jude.swipbackhelper.SwipeBackHelper;
 
 /**
  * Created by zhuchenxi on 16/4/28.
@@ -23,6 +24,8 @@ public class ViewPagerActivity extends BaseActivity {
         setContentView(R.layout.activity_viewpager);
         mPagerView = (RollPagerView) findViewById(R.id.roll_view_pager);
         mPagerView.setAdapter(new TestNomalAdapter());
+        //让RollPagerView可以处理事件，而RollPagerView处不可以滑动环比，其他没有View处理事件的区域可以正常滑动关闭。
+        SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true);
     }
 
     public static class TestNomalAdapter extends StaticPagerAdapter {

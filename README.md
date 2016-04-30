@@ -56,7 +56,7 @@
         .setClosePercent(0.8f)//触发关闭Activity百分比
         .setSwipeRelateEnable(false)//是否与下一级activity联动(微信效果)。默认关
         .setSwipeRelateOffset(500)//activity联动时的偏移量。默认500px。
-        .setDisallowInterceptTouchEvent(true)//不抢占事件，默认关（事件先由子View处理再由滑动关闭处理）
+        .setDisallowInterceptTouchEvent(true)//不抢占事件，默认关（事件将先由子View处理再由滑动关闭处理）
         .addListener(new SwipeListener() {//滑动监听
 
             @Override
