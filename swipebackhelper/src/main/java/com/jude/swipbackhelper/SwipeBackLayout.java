@@ -328,7 +328,10 @@ public class SwipeBackLayout extends FrameLayout {
         a.recycle();
 
         ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();
-        ViewGroup decorChild = (ViewGroup) decor.getChildAt(0);
+        View decorChild  = decor.findViewById(android.R.id.content);
+        while (decorChild.getParent() != decor){
+            decorChild = (View) decorChild.getParent();
+        }
         decorChild.setBackgroundResource(background);
         decor.removeView(decorChild);
         addView(decorChild);

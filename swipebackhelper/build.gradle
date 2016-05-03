@@ -32,7 +32,7 @@ ext {
     siteUrl = 'https://github.com/Jude95/SwipeBackHelper'
     gitUrl = 'https://github.com/Jude95/SwipeBackHelper'
 
-    libraryVersion = '3.0.1'
+    libraryVersion = '3.0.2'
     libraryName = 'swipebackhelper'
     libraryDescription = 'A tool for Android'
 
