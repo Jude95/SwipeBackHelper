@@ -1,5 +1,6 @@
 package com.jude.swipbackhelper;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -31,6 +32,7 @@ public class SwipeBackPage {
     }
 
 
+    @TargetApi(11)
     public SwipeBackPage setSwipeRelateEnable(boolean enable){
         slider.setEnable(enable);
         return this;

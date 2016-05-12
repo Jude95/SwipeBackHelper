@@ -1,5 +1,7 @@
 package com.jude.swipbackhelper;
 
+import android.os.Build;
+
 /**
  * Created by Mr.Jude on 2015/8/26.
  */
@@ -23,11 +25,13 @@ public class RelateSlider implements SwipeListener {
 
     @Override
     public void onScroll(float percent, int px) {
-        SwipeBackPage page = SwipeBackHelper.getPrePage(curPage);
-        if (page!=null){
-            page.getSwipeBackLayout().setX(-offset * Math.max(1 - percent,0));
-            if (percent == 0){
-                page.getSwipeBackLayout().setX(0);
+        if (Build.VERSION.SDK_INT>11){
+            SwipeBackPage page = SwipeBackHelper.getPrePage(curPage);
+            if (page!=null){
+                page.getSwipeBackLayout().setX(-offset * Math.max(1 - percent,0));
+                if (percent == 0){
+                    page.getSwipeBackLayout().setX(0);
+                }
             }
         }
     }
@@ -40,6 +44,8 @@ public class RelateSlider implements SwipeListener {
     @Override
     public void onScrollToClose() {
         SwipeBackPage page = SwipeBackHelper.getPrePage(curPage);
-        if (page!=null) page.getSwipeBackLayout().setX(0);
+        if (Build.VERSION.SDK_INT>11) {
+            if (page != null) page.getSwipeBackLayout().setX(0);
+        }
     }
 }
