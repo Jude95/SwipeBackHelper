@@ -1,4 +1,5 @@
 # SwipeBackHelper  
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwipeBackHelper-green.svg?style=true)](https://android-arsenal.com/details/1/3611)  
 
 [中文](https://github.com/Jude95/SwipeBackHelper/blob/master/README.md) | [English](https://github.com/Jude95/SwipeBackHelper/blob/master/README_en.md)
 
