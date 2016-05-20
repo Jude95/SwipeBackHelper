@@ -12,11 +12,12 @@ Part of the code modified from [SwipeBackLayout](https://github.com/ikew0ng/Swip
 ##Usage
 Add this to`style.xml`:
 
+    //if you don't set this the background will be black when you slide.
     <item name="android:windowIsTranslucent">true</item>
-    <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
-    <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+    //set the right in/out animation of Activity,you can change this to yours
+    <item name="android:windowAnimationStyle">@style/SlideRightAnimation</item>
 
-**Attention**  set up a separate theme for your main activity.it should be at bottom and can't be swipe.
+**Attention**  set up a separate theme for your main activity which should be at bottom and can't be swipe.and set the Activity no swipe by `setSwipeBackEnable(false)`
 
     <style name="MainTheme" parent="AppTheme">
         <item name="android:windowIsTranslucent">false</item>
@@ -72,7 +73,7 @@ If you need more setting,you can use this after `SwipeBackHelper.onCreate()`：
 License
 -------
 
-    Copyright 2015 Jude
+    Copyright 2016 Jude
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
