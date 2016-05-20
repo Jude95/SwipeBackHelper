@@ -26,6 +26,8 @@ dependencies {
     compile 'com.jude:easyrecyclerview:3.5.0'
     compile 'com.jude:rollviewpager:1.2.9'
     compile 'com.jude:utils:1.1.1'
+    compile 'com.readystatesoftware.systembartint:systembartint:1.0.3'
     compile project(':swipebackhelper')
+    //compile 'com.github.romainguy:ViewServer:master'
 }
 

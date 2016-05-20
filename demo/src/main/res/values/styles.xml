@@ -2,12 +2,11 @@
 
     <style name="AppTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/DeepPurple</item>
-        <item name="colorPrimaryDark">@color/DeepPurple</item>
+        <item name="colorPrimary">@color/Black</item>
+        <item name="colorPrimaryDark">@color/Black</item>
         <item name="colorAccent">@color/Orange</item>
         <item name="android:windowIsTranslucent">true</item>
-        <item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
-        <item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+        <item name="android:windowAnimationStyle">@style/SlideRightAnimation</item>
     </style>
 
     <style name="MainTheme" parent="AppTheme">

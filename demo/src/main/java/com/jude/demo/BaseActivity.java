@@ -14,11 +14,12 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         SwipeBackHelper.onCreate(this);
-
         SwipeBackHelper.getCurrentPage(this)
                 .setSwipeBackEnable(true)
                 .setSwipeSensitivity(0.5f)
                 .setSwipeRelateEnable(true);
+        //ViewServer.get(this).addWindow(this);
+
     }
 
     @Override
@@ -27,11 +28,20 @@ public class BaseActivity extends AppCompatActivity {
         SwipeBackHelper.onPostCreate(this);
     }
 
-
     @Override
     protected void onDestroy() {
         super.onDestroy();
         SwipeBackHelper.onDestroy(this);
+        //ViewServer.get(this).removeWindow(this);
     }
+
+    public void onResume() {
+        super.onResume();
+        //ViewServer.get(this).setFocusedWindow(this);
+    }
+
+
+
+
 
 }

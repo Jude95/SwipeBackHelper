@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <translate
-    android:duration="500"
+    android:duration="250"
     android:fromXDelta="100%p"
     android:toXDelta="0"
     android:interpolator="@android:anim/accelerate_decelerate_interpolator"

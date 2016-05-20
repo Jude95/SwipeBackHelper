@@ -8,7 +8,7 @@
     <color name="DeepPurple">#673AB7</color>
     <color name="DeepPurple900">#311B92</color>
     <color name="White">#fff</color>
-
+    <color name="Black">#000</color>
     <color name="Gray">#888888</color>
     <color name="Gray100">#dddddd</color>
     <color name="Gray600">#999999</color>
