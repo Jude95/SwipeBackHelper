@@ -16,15 +16,17 @@
 ##配置
 在`style.xml`中添加
 
-    <item name="android:windowIsTranslucent">true</item>//背景透明，不设滑动关闭时背景就是黑的。
-    <item name="android:windowAnimationStyle">@style/SlideRightAnimation</item>//Activity右滑进出的动画，觉得这个不好看随便换成自己的
+    //背景透明，不设滑动关闭时背景就是黑的。
+    <item name="android:windowIsTranslucent">true</item>
+    //Activity右滑进出的动画，觉得这个不好看随便换成自己的
+    <item name="android:windowAnimationStyle">@style/SlideRightAnimation</item>
 
 **注意:MIUI特殊处理**  给你的主Activity(永远在最底层不会滑动关闭)单独设置一个主题
 
     <style name="MainTheme" parent="AppTheme">
         <item name="android:windowIsTranslucent">false</item>//就是关掉这个Activity的透明背景
     </style>
-再手动关闭这个页面的滑动关闭。
+再手动关闭这个页面的滑动关闭,使用`setSwipeBackEnable(false)`。
 
 在你的Activity中添加一下几个生命周期，即可。
 
