@@ -15,21 +15,22 @@
 
 ##配置
 在`style.xml`中添加
-
+```xml
     //背景透明，不设滑动关闭时背景就是黑的。
     <item name="android:windowIsTranslucent">true</item>
     //Activity右滑进出的动画，觉得这个不好看随便换成自己的
     <item name="android:windowAnimationStyle">@style/SlideRightAnimation</item>
-
+```
 **注意:MIUI特殊处理**  给你的主Activity(永远在最底层不会滑动关闭)单独设置一个主题
-
+```xml
     <style name="MainTheme" parent="AppTheme">
         <item name="android:windowIsTranslucent">false</item>//就是关掉这个Activity的透明背景
     </style>
+```
 再手动关闭这个页面的滑动关闭,使用`setSwipeBackEnable(false)`。
 
 在你的Activity中添加一下几个生命周期，即可。
-
+```java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +48,9 @@
         super.onDestroy();
         SwipeBackHelper.onDestroy(this);
     }
-
+```
 如果需要可在`SwipeBackHelper.onCreate()`之后进行如下参数设置：
-
+```java
     SwipeBackHelper.getCurrentPage(this)//获取当前页面
         .setSwipeBackEnable(true)//设置是否可滑动
         .setSwipeEdge(200)//可滑动的范围。px。200表示为左边200px的屏幕
@@ -74,7 +75,7 @@
             public void onScrollToClose() {//当滑动关闭
             }
         });
-
+```
 License
 -------
 

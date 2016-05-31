@@ -11,20 +11,20 @@ Part of the code modified from [SwipeBackLayout](https://github.com/ikew0ng/Swip
 
 ##Usage
 Add this to`style.xml`:
-
+```xml
     //if you don't set this the background will be black when you slide.
     <item name="android:windowIsTranslucent">true</item>
     //set the right in/out animation of Activity,you can change this to yours
     <item name="android:windowAnimationStyle">@style/SlideRightAnimation</item>
-
+```
 **Attention**  set up a separate theme for your main activity which should be at bottom and can't be swipe.and set the Activity no swipe by `setSwipeBackEnable(false)`
-
+```xml
     <style name="MainTheme" parent="AppTheme">
         <item name="android:windowIsTranslucent">false</item>
     </style>
-
+```
 Add this code into your activity's lifecycle。
-
+```java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +42,9 @@ Add this code into your activity's lifecycle。
         super.onDestroy();
         SwipeBackHelper.onDestroy(this);
     }
-
+```
 If you need more setting,you can use this after `SwipeBackHelper.onCreate()`：
-
+```java
     SwipeBackHelper.getCurrentPage(this)//get current instance
         .setSwipeBackEnable(true)//on-off 
         .setSwipeEdge(200)//set the touch area。200 mean only the left 200px of screen can touch to begin swipe.
@@ -69,11 +69,11 @@ If you need more setting,you can use this after `SwipeBackHelper.onCreate()`：
             public void onScrollToClose() {
             }
         });
-
+```
 License
 -------
 
-    Copyright 2016 Jude
+    Copyright 2015 Jude
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
