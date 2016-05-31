@@ -1,35 +1,31 @@
-# SwipeBackHelper  
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-SwipeBackHelper-green.svg?style=true)](https://android-arsenal.com/details/1/3611)  
+# SwipeBackHelper 
+[中文](https://github.com/Jude95/SwipeBackHelper/blob/master/README_ch.md) | [English](https://github.com/Jude95/SwipeBackHelper/blob/master/README.md)
 
-[中文](https://github.com/Jude95/SwipeBackHelper/blob/master/README.md) | [English](https://github.com/Jude95/SwipeBackHelper/blob/master/README_en.md)
+Only three lines of code makes activity swipe close.
+Part of the code modified from [SwipeBackLayout](https://github.com/ikew0ng/SwipeBackLayout)  
 
-有与微信相同的下级activity联动效果。  
-滑动部分与Activity解耦.在自己的Activity中3个生命周期中加一行代码即可。  
-实现原理，在Activity的Window的decorView与它的子View中间插入一个View来进行手势处理与位移效果。  
-
-部分代码修改自[SwipeBackLayout](https://github.com/ikew0ng/SwipeBackLayout)  
 ![swipeback.png](swipeback.gif)
 
-##依赖
-`compile 'com.jude:swipebackhelper:3.1.0'`
+## Dependenc
+```groovyy
+compile 'com.jude:swipebackhelper:3.1.0'
+```
 
-##配置
-在`style.xml`中添加
+##Usage
+Add this to`style.xml`:
 ```xml
-    //背景透明，不设滑动关闭时背景就是黑的。
+    //if you don't set this the background will be black when you slide.
     <item name="android:windowIsTranslucent">true</item>
-    //Activity右滑进出的动画，觉得这个不好看随便换成自己的
+    //set the right in/out animation of Activity,you can change this to yours
     <item name="android:windowAnimationStyle">@style/SlideRightAnimation</item>
 ```
-**注意:MIUI特殊处理**  给你的主Activity(永远在最底层不会滑动关闭)单独设置一个主题
+**Attention**  set up a separate theme for your main activity which should be at bottom and can't be swipe.and set the Activity no swipe by `setSwipeBackEnable(false)`
 ```xml
     <style name="MainTheme" parent="AppTheme">
-        <item name="android:windowIsTranslucent">false</item>//就是关掉这个Activity的透明背景
+        <item name="android:windowIsTranslucent">false</item>
     </style>
 ```
-再手动关闭这个页面的滑动关闭,使用`setSwipeBackEnable(false)`。
-
-在你的Activity中添加一下几个生命周期，即可。
+Add this code into your activity's lifecycle。
 ```java
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,37 +45,37 @@
         SwipeBackHelper.onDestroy(this);
     }
 ```
-如果需要可在`SwipeBackHelper.onCreate()`之后进行如下参数设置：
+If you need more setting,you can use this after `SwipeBackHelper.onCreate()`：
 ```java
-    SwipeBackHelper.getCurrentPage(this)//获取当前页面
-        .setSwipeBackEnable(true)//设置是否可滑动
-        .setSwipeEdge(200)//可滑动的范围。px。200表示为左边200px的屏幕
-        .setSwipeEdgePercent(0.2f)//可滑动的范围。百分比。0.2表示为左边20%的屏幕
-        .setSwipeSensitivity(0.5f)//对横向滑动手势的敏感程度。0为迟钝 1为敏感
-        .setScrimColor(Color.BLUE)//底层阴影颜色
-        .setClosePercent(0.8f)//触发关闭Activity百分比
-        .setSwipeRelateEnable(false)//是否与下一级activity联动(微信效果)。默认关
-        .setSwipeRelateOffset(500)//activity联动时的偏移量。默认500px。
-        .setDisallowInterceptTouchEvent(true)//不抢占事件，默认关（事件将先由子View处理再由滑动关闭处理）
-        .addListener(new SwipeListener() {//滑动监听
+    SwipeBackHelper.getCurrentPage(this)//get current instance
+        .setSwipeBackEnable(true)//on-off 
+        .setSwipeEdge(200)//set the touch area。200 mean only the left 200px of screen can touch to begin swipe.
+        .setSwipeEdgePercent(0.2f)//0.2 mean left 20% of screen can touch to begin swipe.
+        .setSwipeSensitivity(0.5f)//sensitiveness of the gesture。0:slow  1:sensitive
+        .setScrimColor(Color.BLUE)//color of Scrim below the activity
+        .setClosePercent(0.8f)//close activity when swipe over this 
+        .setSwipeRelateEnable(false)//if should move together with the following Activity
+        .setSwipeRelateOffset(500)//the Offset of following Activity when setSwipeRelateEnable(true)
+.setDisallowInterceptTouchEvent(true)//your view can hand the events first.default false;
+        .addListener(new SwipeListener() {
 
             @Override
-            public void onScroll(float percent, int px) {//滑动的百分比与距离
+            public void onScroll(float percent, int px) {
             }
 
             @Override
-            public void onEdgeTouch() {//当开始滑动
+            public void onEdgeTouch() {
             }
 
             @Override
-            public void onScrollToClose() {//当滑动关闭
+            public void onScrollToClose() {
             }
         });
 ```
 License
 -------
 
-    Copyright 2016 Jude
+    Copyright 2015 Jude
 
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
