@@ -8,7 +8,7 @@ Part of the code modified from [SwipeBackLayout](https://github.com/ikew0ng/Swip
 
 ## Dependency
 ```groovyy
-compile 'com.jude:swipebackhelper:3.1.0'
+compile 'com.jude:swipebackhelper:3.1.1'
 ```
 
 ##Usage

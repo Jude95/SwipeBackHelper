@@ -11,6 +11,10 @@ import android.view.ViewGroup;
  * 每个滑动页面的管理
  */
 public class SwipeBackPage {
+    //仅为判断是否需要将mSwipeBackLayout注入进去
+    private boolean mEnable = true;
+    private boolean mRelativeEnable = false;
+
     Activity mActivity;
     SwipeBackLayout mSwipeBackLayout;
     RelateSlider slider;
@@ -28,12 +32,13 @@ public class SwipeBackPage {
     }
 
     void onPostCreate(){
-        mSwipeBackLayout.attachToActivity(mActivity);
+        handleLayout();
     }
 
 
     @TargetApi(11)
     public SwipeBackPage setSwipeRelateEnable(boolean enable){
+        mRelativeEnable = enable;
         slider.setEnable(enable);
         return this;
     }
@@ -45,13 +50,18 @@ public class SwipeBackPage {
 
     //是否可滑动关闭
     public SwipeBackPage setSwipeBackEnable(boolean enable) {
-        if (enable){
+        mEnable = enable;
+        mSwipeBackLayout.setEnableGesture(enable);
+        handleLayout();
+        return this;
+    }
+
+    private void handleLayout(){
+        if (mEnable||mRelativeEnable){
             mSwipeBackLayout.attachToActivity(mActivity);
         }else {
             mSwipeBackLayout.removeFromActivity(mActivity);
         }
-        mSwipeBackLayout.setEnableGesture(enable);
-        return this;
     }
 
     //可滑动的范围。百分比。200表示为左边200px的屏幕

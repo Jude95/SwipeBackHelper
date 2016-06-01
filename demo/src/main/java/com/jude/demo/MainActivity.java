@@ -7,7 +7,6 @@ import android.view.View;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.jude.swipbackhelper.SwipeBackHelper;
 import com.jude.utils.JUtils;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 /**
  * 1.ViewPager的冲突处理
@@ -21,11 +20,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         setContentView(R.layout.activity_main);
         Fresco.initialize(getApplication());
         JUtils.initialize(getApplication());
-        SystemBarTintManager tintManager = new SystemBarTintManager(this);
         // enable status bar tint
-        tintManager.setStatusBarTintEnabled(true);
         SwipeBackHelper.getCurrentPage(this)
                 .setSwipeBackEnable(false);
+        SwipeBackHelper.getCurrentPage(this).setDisallowInterceptTouchEvent(true);
         findViewById(R.id.btn_text).setOnClickListener(this);
         findViewById(R.id.btn_scroll).setOnClickListener(this);
         findViewById(R.id.btn_viewpager).setOnClickListener(this);
