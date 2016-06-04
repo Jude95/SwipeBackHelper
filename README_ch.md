@@ -12,7 +12,7 @@
 
 ##依赖
 ```groovy
-compile 'com.jude:swipebackhelper:3.1.1'`
+compile 'com.jude:swipebackhelper:3.1.2'`
 ```
 ##配置
 在`style.xml`中添加
