@@ -18,7 +18,7 @@ public class BaseActivity extends AppCompatActivity {
                 .setSwipeBackEnable(true)
                 .setSwipeSensitivity(0.5f)
                 .setSwipeRelateEnable(true)
-                .setSwipeRelateOffset(800);
+                .setSwipeRelateOffset(300);
         //ViewServer.get(this).addWindow(this);
 
     }
