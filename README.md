@@ -11,7 +11,7 @@ Part of the code modified from [SwipeBackLayout](https://github.com/ikew0ng/Swip
 compile 'com.jude:swipebackhelper:3.1.2'
 ```
 
-##Usage
+## Usage
 Add this to`style.xml`:
 ```xml
     //if you don't set this the background will be black when you slide.
